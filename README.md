@@ -13,7 +13,7 @@ Once you have completed these steps, you should be able to run your PHP code and
 ### 4. Change the permissions of the "uploads" directory and the "messages.txt" file to 777 to allow read, write, and execute permissions for everyone.
 `chmod 777 messages.txt` `chmod 777 uploads/`
 <hr>
-<br><br>
+<br>
 <table><tr><td>
     <img src="https://github.com/koun9hwan/Simple-XSS-Test/blob/main/Simple_XSS_Test.png" />
 </td></tr></table>
