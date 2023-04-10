@@ -12,17 +12,16 @@
 
 <body>
     <?php
+    // Suppress error output
     error_reporting(0);
     ini_set('display_errors', 0);
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['content'])) {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['content'] != '') {
         $content = $_POST['content'];
-        if (!empty($content)) {
-            $filename = 'messages.txt';
-            $handle = fopen($filename, 'a');
-            fwrite($handle, $content . "\n");
-            fclose($handle);
-        }
+        $filename = 'messages.txt';
+        $handle = fopen($filename, 'a');
+        fwrite($handle, $content . "\n");
+        fclose($handle);
         header('Location: index.php');
     }
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file']) && $_FILES['file']['error'] == UPLOAD_ERR_OK) {
@@ -47,15 +46,9 @@
         $file_to_delete = $_POST['delete-file'];
         $path_to_file = 'uploads/' . $file_to_delete;
         if (is_file($path_to_file)) {
-          unlink($path_to_file);
+            unlink($path_to_file);
         }
         header('Location: index.php');
-      }
-      
-    function open_file($path) {
-        header('Content-Type: ' . mime_content_type($path));
-        header('Content-Length: ' . filesize($path));
-        readfile($path);
     }
     ?>
     <div class="container">
@@ -67,7 +60,7 @@
                         <label for="content">Write something:</label>
                         <textarea class="form-control" name="content"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
             <div class="col-sm-6">
@@ -83,10 +76,11 @@
         <div class="row">
             <div class="col-sm-6">
                 <h2>Messages:</h2>
-                <form method="post">
+                <form method="post" class="float-right">
                     <input type="hidden" name="reset" value="true">
                     <button type="submit" class="btn btn-danger">Reset Messages</button>
                 </form>
+                <hr>
                 <ul>
                     <?php
                     $filename = 'messages.txt';
@@ -106,22 +100,23 @@
                     <div class="form-group">
                         <label for="delete-file">Select a file to delete:</label>
                         <select class="form-control" name="delete-file">
-                        <?php
+                            <?php
                             $dir = 'uploads';
                             if (is_dir($dir)) {
-                            $files = scandir($dir);
-                            foreach ($files as $file) {
-                                $path = $dir . '/' . $file;
-                                if (is_file($path)) {
-                                echo '<option value="' . $file . '">' . $file . '</option>';
+                                $files = scandir($dir);
+                                foreach ($files as $file) {
+                                    $path = $dir . '/' . $file;
+                                    if (is_file($path)) {
+                                        echo '<option value="' . $file . '">' . $file . '</option>';
+                                    }
                                 }
                             }
-                            }
-                        ?>
+                            ?>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-danger">Delete file</button>
                 </form>
+                <hr>
                 <?php
                 $dir = 'uploads';
                 if (is_dir($dir)) {
@@ -137,7 +132,7 @@
                                 echo '<h3>' . $file . '</h3>';
                                 echo '<pre>' . file_get_contents($path) . '</pre>';
                             } else {
-                                echo '<p>' . $file . '</p>';
+                                echo '<h3>' . $file . '</h3>';
                                 echo '<pre>' . file_get_contents($path) . '</pre>';
                             }
                         }
@@ -146,6 +141,5 @@
                 ?>
             </div>
         </div>
-    </div>
 </body>
 </html>
