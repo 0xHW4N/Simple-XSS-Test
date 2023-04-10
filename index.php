@@ -16,12 +16,14 @@
     error_reporting(0);
     ini_set('display_errors', 0);
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['content'] != '') {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['content'])) {
         $content = $_POST['content'];
-        $filename = 'messages.txt';
-        $handle = fopen($filename, 'a');
-        fwrite($handle, $content . "\n");
-        fclose($handle);
+        if (!empty($content)) {
+            $filename = 'messages.txt';
+            $handle = fopen($filename, 'a');
+            fwrite($handle, $content . "\n");
+            fclose($handle);
+        }
         header('Location: index.php');
     }
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file']) && $_FILES['file']['error'] == UPLOAD_ERR_OK) {
@@ -92,7 +94,6 @@
                     }
                     ?>
                 </ul>
-
             </div>
             <div class="col-sm-6">
                 <h2>Uploaded files:</h2>
@@ -141,5 +142,6 @@
                 ?>
             </div>
         </div>
+    </div>
 </body>
 </html>
