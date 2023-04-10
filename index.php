@@ -9,19 +9,20 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
-<!--Git Clone Test-->
+
 <body>
     <?php
-    // Suppress error output
     error_reporting(0);
     ini_set('display_errors', 0);
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['content'])) {
         $content = $_POST['content'];
-        $filename = 'messages.txt';
-        $handle = fopen($filename, 'a');
-        fwrite($handle, $content . "\n");
-        fclose($handle);
+        if (!empty($content)) {
+            $filename = 'messages.txt';
+            $handle = fopen($filename, 'a');
+            fwrite($handle, $content . "\n");
+            fclose($handle);
+        }
         header('Location: index.php');
     }
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file']) && $_FILES['file']['error'] == UPLOAD_ERR_OK) {
@@ -30,6 +31,31 @@
         $destination = 'uploads/' . $filename;
         move_uploaded_file($tempname, $destination);
         header('Location: index.php');
+    }
+    if (isset($_POST['reset'])) {
+        $filename = 'messages.txt';
+        if (file_exists($filename)) {
+            unlink($filename);
+        }
+        $default_content = '';
+        $handle = fopen($filename, 'w');
+        fwrite($handle, $default_content);
+        fclose($handle);
+        header('Location: index.php');
+    }
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete-file'])) {
+        $file_to_delete = $_POST['delete-file'];
+        $path_to_file = 'uploads/' . $file_to_delete;
+        if (is_file($path_to_file)) {
+          unlink($path_to_file);
+        }
+        header('Location: index.php');
+      }
+      
+    function open_file($path) {
+        header('Content-Type: ' . mime_content_type($path));
+        header('Content-Length: ' . filesize($path));
+        readfile($path);
     }
     ?>
     <div class="container">
@@ -57,6 +83,10 @@
         <div class="row">
             <div class="col-sm-6">
                 <h2>Messages:</h2>
+                <form method="post">
+                    <input type="hidden" name="reset" value="true">
+                    <button type="submit" class="btn btn-danger">Reset Messages</button>
+                </form>
                 <ul>
                     <?php
                     $filename = 'messages.txt';
@@ -68,9 +98,30 @@
                     }
                     ?>
                 </ul>
+
             </div>
             <div class="col-sm-6">
                 <h2>Uploaded files:</h2>
+                <form method="post">
+                    <div class="form-group">
+                        <label for="delete-file">Select a file to delete:</label>
+                        <select class="form-control" name="delete-file">
+                        <?php
+                            $dir = 'uploads';
+                            if (is_dir($dir)) {
+                            $files = scandir($dir);
+                            foreach ($files as $file) {
+                                $path = $dir . '/' . $file;
+                                if (is_file($path)) {
+                                echo '<option value="' . $file . '">' . $file . '</option>';
+                                }
+                            }
+                            }
+                        ?>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-danger">Delete file</button>
+                </form>
                 <?php
                 $dir = 'uploads';
                 if (is_dir($dir)) {
@@ -87,7 +138,7 @@
                                 echo '<pre>' . file_get_contents($path) . '</pre>';
                             } else {
                                 echo '<p>' . $file . '</p>';
-                                echo '<p>' . $file . '</p>';
+                                echo '<pre>' . file_get_contents($path) . '</pre>';
                             }
                         }
                     }
@@ -95,6 +146,6 @@
                 ?>
             </div>
         </div>
+    </div>
 </body>
-
 </html>
