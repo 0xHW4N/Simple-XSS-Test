@@ -14,4 +14,4 @@ Once you have completed these steps, you should be able to run your PHP code and
 `chmod 777 messages.txt` `chmod 777 uploads/`
 <hr>
 <br><br>
-<img src="https://github.com/koun9hwan/Simple-XSS-Test/blob/main/Simple_XSS_Test.png">
+<img src="https://github.com/koun9hwan/Simple-XSS-Test/blob/main/Simple_XSS_Test.png" style="border: 3">
