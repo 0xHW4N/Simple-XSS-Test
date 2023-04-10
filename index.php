@@ -76,7 +76,6 @@
             </div>
         </div>
         <div class="row">
-            <br><br>
             <div class="col-sm-6">
                 <h2>Messages:</h2>
                 <form method="post" class="float-right">
@@ -96,7 +95,6 @@
                     ?>
                 </ul>
             </div>
-            <br>
             <div class="col-sm-6">
                 <h2>Uploaded files:</h2>
                 <form method="post">
