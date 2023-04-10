@@ -76,6 +76,7 @@
             </div>
         </div>
         <div class="row">
+            <br><br>
             <div class="col-sm-6">
                 <h2>Messages:</h2>
                 <form method="post" class="float-right">
@@ -95,6 +96,7 @@
                     ?>
                 </ul>
             </div>
+            <br>
             <div class="col-sm-6">
                 <h2>Uploaded files:</h2>
                 <form method="post">
@@ -127,13 +129,13 @@
                         if (is_file($path)) {
                             $mime = mime_content_type($path);
                             if (substr($mime, 0, 5) == 'image') {
-                                echo '<h3>' . $file . '</h3>';
+                                echo '<h4>' . $file . '</h4>';
                                 echo '<img src="' . $path . '" class="img-responsive" alt="' . $file . '">';
                             } else if ($mime == 'text/plain' || $mime == 'application/xml') {
-                                echo '<h3>' . $file . '</h3>';
+                                echo '<h4>' . $file . '</h4>';
                                 echo '<pre>' . file_get_contents($path) . '</pre>';
                             } else {
-                                echo '<h3>' . $file . '</h3>';
+                                echo '<h4>' . $file . '</h4>';
                                 echo '<pre>' . file_get_contents($path) . '</pre>';
                             }
                         }
