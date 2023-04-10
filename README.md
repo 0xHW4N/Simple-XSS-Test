@@ -3,9 +3,9 @@ Once you have completed these steps, you should be able to run your PHP code and
 <hr>
 
 ### 0. php installation.
-　
+`apt install php`
 ### 1. Download the index.php file from your GitHub repository to your local computer.
-　
+`wget https://raw.githubusercontent.com/koun9hwan/Simple-XSS-Test/main/index.php`
 ### 2. Create a directory called "uploads" in the same directory as your index.php file.
 `mkdir uploads`
 ### 3. Create a file called "messages.txt" in the same directory as your index.php file.
