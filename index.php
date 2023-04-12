@@ -199,7 +199,7 @@
                         </select>
                     </div>
                     <button type="submit" class="btn btn-danger">Delete file</button>
-                    <button type="submit" class="btn btn-danger">Delete file</button>
+                    <button type="submit" name="delete-all-files" class="btn btn-danger">Delete all files</button>
                 </form>
                 <hr>
                 <?php
