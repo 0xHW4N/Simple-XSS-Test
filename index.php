@@ -52,6 +52,20 @@
         }
         header('Location: index.php');
     }
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete-all-files'])) {
+        $dir = 'uploads';
+        if (is_dir($dir)) {
+            $files = scandir($dir);
+            foreach ($files as $file) {
+                $path = $dir . '/' . $file;
+                if (is_file($path)) {
+                    unlink($path);
+                }
+            }
+        }
+        header('Location: index.php');
+    }
+    
     ?>
     <div class="container">
         <h1>Simple XSS Test</h1>
@@ -116,6 +130,7 @@
                         </select>
                     </div>
                     <button type="submit" class="btn btn-danger">Delete file</button>
+                    <button type="submit" name="delete-all-files" class="btn btn-danger">Delete all files</button>
                 </form>
                 <hr>
                 <?php
