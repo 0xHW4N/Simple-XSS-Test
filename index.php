@@ -8,6 +8,76 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        /* Center the page content */
+        .container {
+        max-width: 800px;
+        margin: 0 auto;
+        }
+
+        /* Style the headings */
+        h1, h2, h3, h4, h5, h6 {
+        font-weight: bold;
+        margin-top: 20px;
+        }
+
+        /* Style the form inputs */
+        .form-group label {
+        font-weight: bold;
+        }
+
+        .form-control {
+        border-radius: 0;
+        }
+
+        /* Style the buttons */
+        .btn {
+        border-radius: 4;
+        }
+
+        .btn-primary {
+        border-radius: 4;
+        background-color: #007bff;
+        border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+        background-color: #0069d9;
+        border-color: #0062cc;
+        }
+
+        .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+        }
+
+        .btn-danger:hover {
+        background-color: #c82333;
+        border-color: #bd2130;
+        }
+
+        /* Style the messages list */
+        ul {
+        list-style-type: none;
+        padding-left: 0;
+        }
+
+        li {
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        padding: 10px;
+        }
+
+        /* Style the uploaded files section */
+        .img-responsive {
+        max-width: 100%;
+        height: auto;
+        }
+
+        .form-group select {
+        width: 100%;
+        }
+    </style>
 </head>
 
 <body>
@@ -65,7 +135,6 @@
         }
         header('Location: index.php');
     }
-    
     ?>
     <div class="container">
         <h1>Simple XSS Test</h1>
@@ -130,7 +199,7 @@
                         </select>
                     </div>
                     <button type="submit" class="btn btn-danger">Delete file</button>
-                    <button type="submit" name="delete-all-files" class="btn btn-danger">Delete all files</button>
+                    <button type="submit" class="btn btn-danger">Delete file</button>
                 </form>
                 <hr>
                 <?php
