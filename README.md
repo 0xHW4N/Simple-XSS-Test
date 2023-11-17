@@ -6,7 +6,9 @@ Once you have completed these steps, you should be able to run your PHP code and
 `apt install php`
 ### 1. Download the index.php file from your GitHub repository to your local computer.
 `git clone`
+<br>
 or
+<br>
 `wget https://raw.githubusercontent.com/0xhw4n/Simple-XSS-Test/main/index.php`
 ### 2. Create a directory called "uploads" in the same directory as your index.php file.
 `mkdir uploads`
